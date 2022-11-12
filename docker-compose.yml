@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: exemple
+      MYSQL_USER: exemple
+      MYSQL_PASSWORD: exemple
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exemple
+      WORDPRESS_DB_PASSWORD: exemple
+      WORDPRESS_DB_NAME: exemple
+volumes:
+  db_data: {}
+  wordpress_data: {}
